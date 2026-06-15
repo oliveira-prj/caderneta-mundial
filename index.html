@@ -4,6 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Os Meus Cromos do Mundial 2026</title>
+  <script>
+    // Aplica o tema antes de carregar o CSS, para o Dark Mode mudar mesmo ao abrir a página.
+    (function () {
+      try {
+        var tema = localStorage.getItem("cromosMundial_tema_v1") || "auto";
+        if (!["auto", "light", "dark"].includes(tema)) tema = "auto";
+        var prefereEscuro = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var resolvido = tema === "auto" ? (prefereEscuro ? "dark" : "light") : tema;
+        document.documentElement.dataset.theme = resolvido;
+        document.documentElement.dataset.themePreference = tema;
+        document.documentElement.classList.toggle("theme-dark", resolvido === "dark");
+        document.documentElement.classList.toggle("theme-light", resolvido === "light");
+      } catch (e) {
+        document.documentElement.dataset.theme = "light";
+        document.documentElement.classList.add("theme-light");
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>

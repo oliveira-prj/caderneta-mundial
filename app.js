@@ -69,9 +69,18 @@ function resolverTema(tema) {
 function aplicarTema(tema = obterTemaGuardado(), guardar = false) {
   const temaEscolhido = ["auto", "light", "dark"].includes(tema) ? tema : "auto";
   const temaResolvido = resolverTema(temaEscolhido);
+  const root = document.documentElement;
 
-  document.documentElement.dataset.theme = temaResolvido;
-  document.documentElement.dataset.themePreference = temaEscolhido;
+  root.dataset.theme = temaResolvido;
+  root.dataset.themePreference = temaEscolhido;
+  root.classList.toggle("theme-dark", temaResolvido === "dark");
+  root.classList.toggle("theme-light", temaResolvido === "light");
+
+  if (document.body) {
+    document.body.dataset.theme = temaResolvido;
+    document.body.classList.toggle("theme-dark", temaResolvido === "dark");
+    document.body.classList.toggle("theme-light", temaResolvido === "light");
+  }
 
   if (guardar) localStorage.setItem(THEME_KEY, temaEscolhido);
 

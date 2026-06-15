@@ -507,7 +507,32 @@ details a { color: var(--primary); }
   font-weight: 900;
 }
 
-html[data-theme="dark"] {
+
+html[data-theme="light"],
+html.theme-light {
+  --mex-green: #006847;
+  --mex-red: #ce1126;
+  --usa-blue: #1f4e9d;
+  --can-red: #d80621;
+  --trophy-gold: #d4af37;
+  --bg: #f5f7fb;
+  --bg-deep: #081528;
+  --card: rgba(255, 255, 255, 0.82);
+  --card-solid: #ffffff;
+  --card-hover: rgba(255, 255, 255, 0.96);
+  --primary: #0a84ff;
+  --success: #00a86b;
+  --danger: #ff3b30;
+  --warning: #f5b301;
+  --text: #0f172a;
+  --text-dim: #64748b;
+  --border: rgba(15, 23, 42, 0.10);
+  --shadow: 0 22px 60px rgba(8, 21, 40, 0.14);
+  --shadow-soft: 0 12px 34px rgba(8, 21, 40, 0.10);
+}
+
+html[data-theme="dark"],
+html.theme-dark {
   --bg: #07111f;
   --bg-deep: #020617;
   --card: rgba(15, 23, 42, 0.78);
@@ -524,7 +549,8 @@ html[data-theme="dark"] {
   --shadow-soft: 0 14px 38px rgba(0, 0, 0, 0.28);
 }
 
-html[data-theme="dark"] body {
+html[data-theme="dark"] body,
+html.theme-dark body {
   background:
     radial-gradient(circle at top left, rgba(0,104,71,0.25), transparent 34rem),
     radial-gradient(circle at 88% 10%, rgba(31,78,157,0.28), transparent 31rem),
@@ -532,20 +558,23 @@ html[data-theme="dark"] body {
     linear-gradient(180deg, #07111f 0%, #020617 100%);
 }
 
-html[data-theme="dark"] body::before {
+html[data-theme="dark"] body::before,
+html.theme-dark body::before {
   background-image:
     linear-gradient(135deg, rgba(255,255,255,0.07), transparent 34%),
     linear-gradient(90deg, rgba(212,175,55,0.06) 0 1px, transparent 1px);
   opacity: 0.9;
 }
 
-html[data-theme="dark"] header {
+html[data-theme="dark"] header,
+html.theme-dark header {
   background: rgba(2, 6, 23, 0.74);
   border-bottom-color: rgba(226,232,240,0.11);
   box-shadow: 0 10px 30px rgba(0,0,0,0.28);
 }
 
 html[data-theme="dark"] .menu-card,
+html.theme-dark .menu-card,
 html[data-theme="dark"] .stats,
 html[data-theme="dark"] .card-info,
 html[data-theme="dark"] .lista-cromos,
@@ -558,26 +587,31 @@ html[data-theme="dark"] .selecao-card {
 }
 
 html[data-theme="dark"] .menu-card:hover,
+html.theme-dark .menu-card:hover,
 html[data-theme="dark"] .selecao-card:hover,
 html[data-theme="dark"] .selecao-card.em-foco {
   background: var(--card-hover);
 }
 
-html[data-theme="dark"] .nav-btn {
+html[data-theme="dark"] .nav-btn,
+html.theme-dark .nav-btn {
   background: rgba(226, 232, 240, 0.06);
   border-color: rgba(226, 232, 240, 0.11);
   color: var(--text-dim);
 }
-html[data-theme="dark"] .nav-btn:hover {
+html[data-theme="dark"] .nav-btn:hover,
+html.theme-dark .nav-btn:hover {
   background: rgba(88,166,255,0.14);
   color: var(--text);
 }
-html[data-theme="dark"] .nav-btn.active {
+html[data-theme="dark"] .nav-btn.active,
+html.theme-dark .nav-btn.active {
   background: linear-gradient(135deg, var(--usa-blue), var(--primary));
   color: white;
 }
 
 html[data-theme="dark"] #filtroSelecoes,
+html.theme-dark #filtroSelecoes,
 html[data-theme="dark"] input[type=text],
 html[data-theme="dark"] input[type=password],
 html[data-theme="dark"] select {
@@ -587,12 +621,14 @@ html[data-theme="dark"] select {
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 8px 18px rgba(0,0,0,0.18);
 }
 
-html[data-theme="dark"] select option {
+html[data-theme="dark"] select option,
+html.theme-dark select option {
   background: #0f172a;
   color: var(--text);
 }
 
 html[data-theme="dark"] .pager-indicator,
+html.theme-dark .pager-indicator,
 html[data-theme="dark"] .cromos-grid {
   background: rgba(15, 23, 42, 0.62);
   border-color: rgba(226,232,240,0.12);
@@ -600,6 +636,7 @@ html[data-theme="dark"] .cromos-grid {
 }
 
 html[data-theme="dark"] .cromo,
+html.theme-dark .cromo,
 html[data-theme="dark"] .cromo-btn,
 html[data-theme="dark"] button,
 html[data-theme="dark"] .btn-like {
@@ -609,6 +646,7 @@ html[data-theme="dark"] .btn-like {
 }
 
 html[data-theme="dark"] button:hover,
+html.theme-dark button:hover,
 html[data-theme="dark"] .btn-like:hover,
 html[data-theme="dark"] .cromo-btn:hover {
   background: rgba(30, 41, 59, 0.96);
@@ -616,36 +654,42 @@ html[data-theme="dark"] .cromo-btn:hover {
 }
 
 html[data-theme="dark"] button.primary,
+html.theme-dark button.primary,
 html[data-theme="dark"] .cromo-btn.selecionado {
   background: linear-gradient(135deg, var(--mex-green), var(--usa-blue));
   color: white;
   border-color: rgba(255,255,255,0.14);
 }
 
-html[data-theme="dark"] button.danger {
+html[data-theme="dark"] button.danger,
+html.theme-dark button.danger {
   background: linear-gradient(135deg, var(--can-red), var(--mex-red));
   color: white;
 }
 
 html[data-theme="dark"] .selecao-card.completa,
+html.theme-dark .selecao-card.completa,
 html[data-theme="dark"] .stat-row.completa {
   background: linear-gradient(135deg, #005f41 0%, #00a86b 64%, #19c982 100%);
   color: white;
 }
 
-html[data-theme="dark"] .mini-pct {
+html[data-theme="dark"] .mini-pct,
+html.theme-dark .mini-pct {
   background: rgba(88,166,255,0.16);
   color: #9ecbff;
 }
 
-html[data-theme="dark"] .mensagem {
+html[data-theme="dark"] .mensagem,
+html.theme-dark .mensagem {
   color: #c7ffdf;
   background: rgba(0,168,107,0.15);
   border-color: rgba(39,209,127,0.28);
   border-left-color: var(--success);
 }
 
-html[data-theme="dark"] .mensagem.erro {
+html[data-theme="dark"] .mensagem.erro,
+html.theme-dark .mensagem.erro {
   color: #ffd0d0;
   background: rgba(255,95,87,0.14);
   border-color: rgba(255,95,87,0.26);
@@ -653,11 +697,13 @@ html[data-theme="dark"] .mensagem.erro {
 }
 
 html[data-theme="dark"] details summary,
+html.theme-dark details summary,
 html[data-theme="dark"] details a {
   color: #9ecbff;
 }
 
 html[data-theme="dark"] .stat-card.warning .valor,
+html.theme-dark .stat-card.warning .valor,
 html[data-theme="dark"] .cromo .qtd {
   color: var(--warning);
 }
