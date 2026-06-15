@@ -2,12 +2,19 @@
 <html lang="pt-PT">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Os Meus Cromos do Mundial 2026</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>⚽ Os Meus Cromos do Mundial 2026</h1>
+    <div class="brand">
+      <span class="brand-ball">⚽</span>
+      <div>
+        <p class="eyebrow">Mundial 2026</p>
+        <h1>Os Meus Cromos</h1>
+      </div>
+    </div>
     <nav>
       <button data-view="menu" class="nav-btn active">Menu</button>
       <button data-view="selecoes" class="nav-btn">Seleções</button>
@@ -21,36 +28,58 @@
   <main>
     <section id="view-menu" class="view active">
       <div class="menu-grid">
-        <div class="menu-card" data-view="selecoes">
+        <button class="menu-card" data-view="selecoes">
           <span class="icon">📋</span><h2>Ver Seleções</h2>
           <p>Estado da coleção por seleção</p>
-        </div>
-        <div class="menu-card" data-view="cadastrar">
+        </button>
+        <button class="menu-card" data-view="cadastrar">
           <span class="icon">➕</span><h2>Cadastrar Cromos</h2>
           <p>Adiciona os cromos que te saíram</p>
-        </div>
-        <div class="menu-card" data-view="trocas">
+        </button>
+        <button class="menu-card" data-view="trocas">
           <span class="icon">🔄</span><h2>Trocas</h2>
           <p>Regista cromos dados e recebidos</p>
-        </div>
-        <div class="menu-card" data-view="estatisticas">
+        </button>
+        <button class="menu-card" data-view="estatisticas">
           <span class="icon">📊</span><h2>Estatísticas</h2>
           <p>Progresso detalhado da caderneta</p>
-        </div>
-        <div class="menu-card" data-view="dados">
+        </button>
+        <button class="menu-card" data-view="dados">
           <span class="icon">💾</span><h2>Dados</h2>
           <p>Sincronizar entre computadores</p>
-        </div>
+        </button>
       </div>
       <div class="stats" id="globalStats"></div>
     </section>
 
     <section id="view-selecoes" class="view">
-      <h2>Seleções</h2>
-      <input type="text" id="filtroSelecoes" placeholder="🔍 Procurar seleção..." />
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Coleção</p>
+          <h2>Seleções</h2>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <input type="text" id="filtroSelecoes" placeholder="🔍 Procurar seleção..." />
+        <div id="navSelecoesLista" class="pager">
+          <button id="btnSelecaoAnteriorLista" type="button">← Anterior</button>
+          <span id="indicadorSelecaoLista" class="pager-indicator">0 / 0</span>
+          <button id="btnSelecaoSeguinteLista" type="button">Seguinte →</button>
+        </div>
+      </div>
+
       <div id="listaSelecoes" class="selecoes-grid"></div>
+
       <div id="detalheSelecao" class="hidden">
-        <button class="back-btn" id="voltarSelecoes">← Voltar</button>
+        <div class="detail-nav">
+          <button class="back-btn" id="voltarSelecoes" type="button">← Voltar à lista</button>
+          <div class="pager compact">
+            <button id="btnSelecaoAnteriorDetalhe" type="button">← Anterior</button>
+            <span id="indicadorSelecaoDetalhe" class="pager-indicator">0 / 0</span>
+            <button id="btnSelecaoSeguinteDetalhe" type="button">Seguinte →</button>
+          </div>
+        </div>
         <h2 id="nomeSelecao"></h2>
         <div class="cromos-listas">
           <div class="lista-cromos">
@@ -70,19 +99,34 @@
     </section>
 
     <section id="view-cadastrar" class="view">
-      <h2>Cadastrar Cromos</h2>
-      <p>Escolhe a seleção e clica nos cromos que te saíram. Carregar várias vezes adiciona repetidos.</p>
-      <select id="selectSelecaoCadastro"></select>
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Adicionar</p>
+          <h2>Cadastrar Cromos</h2>
+        </div>
+      </div>
+      <p class="intro">Escolhe a seleção e clica nos cromos que te saíram. Carregar várias vezes adiciona repetidos.</p>
+      <div class="selector-nav">
+        <button id="btnCadastroAnterior" type="button">← Anterior</button>
+        <select id="selectSelecaoCadastro"></select>
+        <button id="btnCadastroSeguinte" type="button">Seguinte →</button>
+      </div>
+      <div id="indicadorCadastro" class="pager-indicator standalone">0 / 0</div>
       <div id="cromosCadastro" class="cromos-grid"></div>
       <div class="actions">
-        <button id="btnConfirmarCadastro" class="primary">Cadastrar Selecionados</button>
-        <button id="btnLimparSelecao">Limpar</button>
+        <button id="btnConfirmarCadastro" class="primary" type="button">Cadastrar Selecionados</button>
+        <button id="btnLimparSelecao" type="button">Limpar</button>
       </div>
       <div id="mensagemCadastro" class="mensagem hidden"></div>
     </section>
 
     <section id="view-trocas" class="view">
-      <h2>Trocas</h2>
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Repetidos</p>
+          <h2>Trocas</h2>
+        </div>
+      </div>
       <div class="trocas-container">
         <div class="troca-bloco">
           <h3>📤 Cromos que dei (dos repetidos)</h3>
@@ -96,28 +140,38 @@
         </div>
       </div>
       <div class="actions">
-        <button id="btnConfirmarTroca" class="primary">Registar Troca</button>
-        <button id="btnLimparTroca">Limpar</button>
+        <button id="btnConfirmarTroca" class="primary" type="button">Registar Troca</button>
+        <button id="btnLimparTroca" type="button">Limpar</button>
       </div>
       <div id="mensagemTroca" class="mensagem hidden"></div>
     </section>
 
     <section id="view-estatisticas" class="view">
-      <h2>📊 Estatísticas da Caderneta</h2>
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Painel</p>
+          <h2>📊 Estatísticas da Caderneta</h2>
+        </div>
+      </div>
       <div id="statsGerais" class="stats-grid"></div>
-      <h3 style="margin-top:2rem;">Progresso por Seleção</h3>
+      <h3 class="subtitulo">Progresso por Seleção</h3>
       <div id="statsSelecoes" class="stats-selecoes"></div>
     </section>
 
     <section id="view-dados" class="view">
-      <h2>Gestão de Dados</h2>
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Segurança</p>
+          <h2>Gestão de Dados</h2>
+        </div>
+      </div>
       <div class="card-info">
         <h3>💻 Backup local (este computador)</h3>
         <p>Exporta os dados para ficheiro JSON ou importa de outro ficheiro.</p>
         <div class="actions">
-          <button id="btnExportar" class="primary">⬇️ Exportar</button>
+          <button id="btnExportar" class="primary" type="button">⬇️ Exportar</button>
           <label class="btn-like">⬆️ Importar<input type="file" id="inputImportar" accept=".json" hidden /></label>
-          <button id="btnReset" class="danger">🗑️ Apagar Tudo</button>
+          <button id="btnReset" class="danger" type="button">🗑️ Apagar Tudo</button>
         </div>
       </div>
 
@@ -136,9 +190,9 @@
         <input type="password" id="ghToken" placeholder="GitHub Token (ghp_...)" />
         <input type="text" id="ghGistId" placeholder="Gist ID (deixa vazio para criar novo)" />
         <div class="actions">
-          <button id="btnSaveCloud" class="primary">☁️ Guardar na Nuvem</button>
-          <button id="btnLoadCloud">⬇️ Carregar da Nuvem</button>
-          <button id="btnSaveConfig">💾 Guardar Config</button>
+          <button id="btnSaveCloud" class="primary" type="button">☁️ Guardar na Nuvem</button>
+          <button id="btnLoadCloud" type="button">⬇️ Carregar da Nuvem</button>
+          <button id="btnSaveConfig" type="button">💾 Guardar Config</button>
         </div>
       </div>
       <div id="mensagemDados" class="mensagem hidden"></div>
