@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <title>Os Meus Cromos do Mundial 2026</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>⚽ Os Meus Cromos do Mundial 2026</h1>
+    <nav>
+      <button data-view="menu" class="nav-btn active">Menu</button>
+      <button data-view="selecoes" class="nav-btn">Seleções</button>
+      <button data-view="cadastrar" class="nav-btn">Cadastrar</button>
+      <button data-view="trocas" class="nav-btn">Trocas</button>
+      <button data-view="estatisticas" class="nav-btn">Estatísticas</button>
+      <button data-view="dados" class="nav-btn">Dados</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="view-menu" class="view active">
+      <div class="menu-grid">
+        <div class="menu-card" data-view="selecoes">
+          <span class="icon">📋</span><h2>Ver Seleções</h2>
+          <p>Estado da coleção por seleção</p>
+        </div>
+        <div class="menu-card" data-view="cadastrar">
+          <span class="icon">➕</span><h2>Cadastrar Cromos</h2>
+          <p>Adiciona os cromos que te saíram</p>
+        </div>
+        <div class="menu-card" data-view="trocas">
+          <span class="icon">🔄</span><h2>Trocas</h2>
+          <p>Regista cromos dados e recebidos</p>
+        </div>
+        <div class="menu-card" data-view="estatisticas">
+          <span class="icon">📊</span><h2>Estatísticas</h2>
+          <p>Progresso detalhado da caderneta</p>
+        </div>
+        <div class="menu-card" data-view="dados">
+          <span class="icon">💾</span><h2>Dados</h2>
+          <p>Sincronizar entre computadores</p>
+        </div>
+      </div>
+      <div class="stats" id="globalStats"></div>
+    </section>
+
+    <section id="view-selecoes" class="view">
+      <h2>Seleções</h2>
+      <input type="text" id="filtroSelecoes" placeholder="🔍 Procurar seleção..." />
+      <div id="listaSelecoes" class="selecoes-grid"></div>
+      <div id="detalheSelecao" class="hidden">
+        <button class="back-btn" id="voltarSelecoes">← Voltar</button>
+        <h2 id="nomeSelecao"></h2>
+        <div class="cromos-listas">
+          <div class="lista-cromos">
+            <h3>✅ Já tenho (<span id="countTenho">0</span>)</h3>
+            <div id="listaTenho" class="cromos"></div>
+          </div>
+          <div class="lista-cromos">
+            <h3>❌ Em falta (<span id="countFalta">0</span>)</h3>
+            <div id="listaFalta" class="cromos"></div>
+          </div>
+          <div class="lista-cromos">
+            <h3>🔁 Repetidos (<span id="countRepetidos">0</span>)</h3>
+            <div id="listaRepetidos" class="cromos"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-cadastrar" class="view">
+      <h2>Cadastrar Cromos</h2>
+      <p>Escolhe a seleção e clica nos cromos que te saíram. Carregar várias vezes adiciona repetidos.</p>
+      <select id="selectSelecaoCadastro"></select>
+      <div id="cromosCadastro" class="cromos-grid"></div>
+      <div class="actions">
+        <button id="btnConfirmarCadastro" class="primary">Cadastrar Selecionados</button>
+        <button id="btnLimparSelecao">Limpar</button>
+      </div>
+      <div id="mensagemCadastro" class="mensagem hidden"></div>
+    </section>
+
+    <section id="view-trocas" class="view">
+      <h2>Trocas</h2>
+      <div class="trocas-container">
+        <div class="troca-bloco">
+          <h3>📤 Cromos que dei (dos repetidos)</h3>
+          <select id="selectSelecaoTrocaDei"></select>
+          <div id="cromosTrocaDei" class="cromos-grid"></div>
+        </div>
+        <div class="troca-bloco">
+          <h3>📥 Cromos que recebi</h3>
+          <select id="selectSelecaoTrocaRecebi"></select>
+          <div id="cromosTrocaRecebi" class="cromos-grid"></div>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="btnConfirmarTroca" class="primary">Registar Troca</button>
+        <button id="btnLimparTroca">Limpar</button>
+      </div>
+      <div id="mensagemTroca" class="mensagem hidden"></div>
+    </section>
+
+    <section id="view-estatisticas" class="view">
+      <h2>📊 Estatísticas da Caderneta</h2>
+      <div id="statsGerais" class="stats-grid"></div>
+      <h3 style="margin-top:2rem;">Progresso por Seleção</h3>
+      <div id="statsSelecoes" class="stats-selecoes"></div>
+    </section>
+
+    <section id="view-dados" class="view">
+      <h2>Gestão de Dados</h2>
+      <div class="card-info">
+        <h3>💻 Backup local (este computador)</h3>
+        <p>Exporta os dados para ficheiro JSON ou importa de outro ficheiro.</p>
+        <div class="actions">
+          <button id="btnExportar" class="primary">⬇️ Exportar</button>
+          <label class="btn-like">⬆️ Importar<input type="file" id="inputImportar" accept=".json" hidden /></label>
+          <button id="btnReset" class="danger">🗑️ Apagar Tudo</button>
+        </div>
+      </div>
+
+      <div class="card-info">
+        <h3>☁️ Sincronizar entre computadores (GitHub Gist)</h3>
+        <p>Para usar a tua coleção em vários computadores, configura aqui um token do GitHub. Os teus dados ficam guardados num Gist privado e sincronizados em todos os dispositivos onde uses o mesmo token e Gist ID.</p>
+        <details>
+          <summary>Como configurar (passo a passo)</summary>
+          <ol>
+            <li>Vai a <a href="https://github.com/settings/tokens?type=beta" target="_blank">github.com/settings/tokens</a> e cria um Personal Access Token (classic) com permissão <b>gist</b>.</li>
+            <li>Cola o token aqui em baixo e clica em "Guardar Token".</li>
+            <li>Na primeira vez, clica em "Criar Gist Novo" — vai gerar um Gist ID. Copia esse ID.</li>
+            <li>No outro computador, instala o site, cola o mesmo token e o mesmo Gist ID, e clica em "Carregar do Gist".</li>
+          </ol>
+        </details>
+        <input type="password" id="ghToken" placeholder="GitHub Token (ghp_...)" />
+        <input type="text" id="ghGistId" placeholder="Gist ID (deixa vazio para criar novo)" />
+        <div class="actions">
+          <button id="btnSaveCloud" class="primary">☁️ Guardar na Nuvem</button>
+          <button id="btnLoadCloud">⬇️ Carregar da Nuvem</button>
+          <button id="btnSaveConfig">💾 Guardar Config</button>
+        </div>
+      </div>
+      <div id="mensagemDados" class="mensagem hidden"></div>
+    </section>
+  </main>
+
+  <script src="cromos.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
