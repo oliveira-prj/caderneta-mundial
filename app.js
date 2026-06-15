@@ -3,6 +3,7 @@
 // =============================================
 const STORAGE_KEY = "cromosMundial_v1";
 const HISTORY_KEY = "cromosMundial_ultimos_v1";
+const THEME_KEY = "cromosMundial_tema_v1";
 const MAX_ULTIMOS_CROMOS = 5;
 
 function estruturaInicial() {
@@ -46,6 +47,36 @@ function carregarHistoricoAdicionados() {
 
 function guardarHistoricoAdicionados() {
   localStorage.setItem(HISTORY_KEY, JSON.stringify(ultimosCromosAdicionados.slice(0, MAX_ULTIMOS_CROMOS)));
+}
+
+// =============================================
+// DEFINIÇÕES DE APARÊNCIA
+// =============================================
+function obterTemaGuardado() {
+  const tema = localStorage.getItem(THEME_KEY) || "auto";
+  return ["auto", "light", "dark"].includes(tema) ? tema : "auto";
+}
+
+function sistemaPrefereDarkMode() {
+  return window.matchMedia?.("(prefers-color-scheme: dark)").matches || false;
+}
+
+function resolverTema(tema) {
+  if (tema === "dark" || tema === "light") return tema;
+  return sistemaPrefereDarkMode() ? "dark" : "light";
+}
+
+function aplicarTema(tema = obterTemaGuardado(), guardar = false) {
+  const temaEscolhido = ["auto", "light", "dark"].includes(tema) ? tema : "auto";
+  const temaResolvido = resolverTema(temaEscolhido);
+
+  document.documentElement.dataset.theme = temaResolvido;
+  document.documentElement.dataset.themePreference = temaEscolhido;
+
+  if (guardar) localStorage.setItem(THEME_KEY, temaEscolhido);
+
+  const selectTema = document.getElementById("selectTema");
+  if (selectTema) selectTema.value = temaEscolhido;
 }
 
 let colecao = normalizarColecao(carregarDados());
@@ -732,7 +763,18 @@ function renderDados() {
 
   if (tokenInp && !tokenInp.value) tokenInp.value = token;
   if (gistInp && !gistInp.value) gistInp.value = gistId;
+
+  aplicarTema(obterTemaGuardado(), false);
 }
+
+document.getElementById("selectTema")?.addEventListener("change", (e) => {
+  aplicarTema(e.target.value, true);
+  mostrarMensagem("Dados", "Aparência guardada neste browser.", false);
+});
+
+window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+  if (obterTemaGuardado() === "auto") aplicarTema("auto", false);
+});
 
 document.getElementById("btnExportar")?.addEventListener("click", () => {
   const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(colecao, null, 2));
@@ -866,5 +908,6 @@ document.getElementById("btnLoadCloud")?.addEventListener("click", async () => {
 // =============================================
 // INICIALIZAÇÃO DA APLICAÇÃO
 // =============================================
+aplicarTema(obterTemaGuardado(), false);
 guardarDados(colecao);
 mostrarVista("menu", { forcar: true });
